@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div>
     <CompetitionList :list="list"/>
   </div>
 </template>
@@ -12,18 +12,33 @@ export default {
   name: 'Home',
   data() {
     return {
-      list: []
+      list: [],
+      currentCompetition: {}
     }
   },
   mounted: function(){
-    console.log("fucking heeloow worororo")
-    this.axios({ 
-      url: 'http://api.football-data.org/v2/competitions',
-      headers: {'X-Auth-Token': '6bd688cffee243f2a973d25dcc6d6d1b'}, 
-      }).then( response => {
-        console.log(response.data.competitions)
-        this.list = response.data.competitions
+    this.getAllLeagues();
+  },
+  methods: {
+    getAllLeagues: function(){
+      this.axios({ 
+        url: 'http://api.football-data.org/v2/competitions',
+        headers: {'X-Auth-Token': '6bd688cffee243f2a973d25dcc6d6d1b'}, 
+        }).then( response => {
+          console.log(response.data.competitions)
+          this.list = response.data.competitions
       })
+      console.log("getSingleLEague tttttttttttttttttttttesteng")
+      let url = `http://api.football-data.org/v2/competitions/2000`
+      this.axios({
+          url: url,
+          headers: {'X-Auth-Token': '6bd688cffee243f2a973d25dcc6d6d1b'}, 
+          type: 'GET'
+          }).then( response => {
+              this.league = response.data
+          console.log(response.data)
+      }).catch( error => {console.log(error)})
+    },
   },
   components: {
     CompetitionList
