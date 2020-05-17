@@ -10,6 +10,9 @@
         <p>Temporada: {{temporada}}</p>
         <div class="container-club">
             <ClubItem v-for="team in league.teams" :key="team.id" :team="team"/>
+            <div class="grid-table">
+                <Tabla :table="table" />
+            </div>
         </div>
       </div>
   </div>
@@ -17,10 +20,11 @@
 <script>
 //<button @click="getSingleLeague">qwe</button>
 import ClubItem from '@/components/ClubItem'
+import Tabla from '@/components/Tabla'
 import {mapActions,mapGetters} from 'vuex'
 export default {
     props: ['id','urr','idd'],
-    components: {ClubItem},
+    components: {ClubItem,Tabla},
     data(){
         return {
             loaded: false
@@ -31,6 +35,7 @@ export default {
         this.loaded = true
         console.log("loading standings")
         await this.resStandings(this.idd)
+        console.log("from created ")
     },
     methods: {
         ...mapActions(['fetchSingleLeague','vaciarLeague','resStandings']),
@@ -38,7 +43,7 @@ export default {
     //https://www.football-data.org/documentation/quickstart/
     //https://www.football-data.org/docs/v2/index.html#_competition
     computed: {
-        ...mapGetters(['getSingleLeague']),
+        ...mapGetters(['getSingleLeague','getStandings']),
         league: function(){
             if(Object.prototype.hasOwnProperty.call(this.getSingleLeague, 'competition')){
                return {
@@ -51,15 +56,17 @@ export default {
             return {area: {}, season: {}, teams: [], winner: {}}
         },
         temporada: function(){
-            if(Object.prototype.hasOwnProperty.call(this.getSingleLeague, 'season')){
-                let convertir = ({startDate,endDate}) => {
-                    let startYear = new Date(startDate).getFullYear(),
-                        endYear = new Date(endDate).getFullYear() 
-                    return startYear === endYear ? startYear: `${startYear}/${endYear}`
-                }
-                return convertir(this.league.season)
+            let convertir = ({startDate,endDate}) => {
+                let startYear = new Date(startDate).getFullYear(),
+                    endYear = new Date(endDate).getFullYear() 
+                return startYear === endYear ? startYear: `${startYear}/${endYear}`
             }
-            return ''
+            return convertir(this.league.season)
+        },
+        table: function(){
+            if(Object.prototype.hasOwnProperty.call(this.getStandings, 'standings'))
+                return this.getStandings.standings[0].table
+            return []
         }
     },
     beforeDestroy(){
@@ -74,7 +81,7 @@ export default {
     row-gap: 5px;
     column-gap: 5px;    
 }
-.grid-item {
-    
+.grid-table {
+    grid-column: 4/8;
 }
 </style>
