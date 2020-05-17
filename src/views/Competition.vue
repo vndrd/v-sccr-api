@@ -7,6 +7,7 @@
         <p v-if="league.winner">
             img: {{league.winner.crestUrl}}
         </p>
+        <p>Temporada: {{temporada}}</p>
         <div class="container-club">
             <ClubItem v-for="team in league.teams" :key="team.id" :team="team"/>
         </div>
@@ -40,11 +41,23 @@ export default {
             if(Object.prototype.hasOwnProperty.call(this.getSingleLeague, 'competition')){
                return {
                    ...this.getSingleLeague.competition,
+                   season: this.getSingleLeague.season,
                    winner : this.getSingleLeague.season.winner,
                    teams: this.getSingleLeague.teams
                }
             }
             return {area: {}, season: {}, teams: [], winner: {}}
+        },
+        temporada: function(){
+            if(Object.prototype.hasOwnProperty.call(this.getSingleLeague, 'season')){
+                let convertir = ({startDate,endDate}) => {
+                    let startYear = new Date(startDate).getFullYear(),
+                        endYear = new Date(endDate).getFullYear() 
+                    return startYear === endYear ? startYear: `${startYear}/${endYear}`
+                }
+                return convertir(this.league.season)
+            }
+            return ''
         }
     },
     beforeDestroy(){
@@ -57,7 +70,7 @@ export default {
     display: grid;
     grid-template-columns: repeat(10,1fr);
     row-gap: 5px;
-    column-gap: 5px;
+    column-gap: 5px;    
 }
 .grid-item {
     
