@@ -8,16 +8,16 @@
                     <th>Points</th>
                     <th>+/-</th>
                 </tr>
-            </thead>
+            </thead>        
+            <tbody>
+                <tr v-for="item in table" :key="item.team.id">
+                    <td>{{item.position}}</td>
+                    <td>{{item.team.name}}</td>
+                    <td>{{item.points}}</td>
+                    <td>{{item.goalDifference}}</td>
+                </tr>
+            </tbody>
         </table>
-        <tbody>
-            <tr v-for="item in table" :key="item.team.id">
-                <td>{{item.position}}</td>
-                <td>{{item.team.name}}</td>
-                <td>{{item.points}}</td>
-                <td>{{item.goalDifference}}</td>
-            </tr>
-        </tbody>
     </div>
 </template>
 <script>
@@ -28,11 +28,28 @@ export default {
 </script>
 <style lang="scss" scoped>
 .cont-table {
-    width: 300px;
-    overflow: hidden;
-    height: auto;
     display: inline;
-    margin-left: auto;
-    margin-right: auto;
+    text-align: center;
+}
+table{ 
+    margin:auto;
+    border-collapse: collapse;
+}
+thead{
+    background: #333;
+    color:#ddd;
+}
+thead tr th {
+    padding: 20px;
+}
+tbody tr td{
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+tbody tr:nth-child(2n) {
+    background: #cfc;
+}
+tbody tr:nth-child(2n+1) {
+    background: #ccc;
 }
 </style>
