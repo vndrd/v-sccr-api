@@ -1,12 +1,16 @@
 <template>
   <div>
-    <h1>{{league.name}}</h1>    
-    <h3>{{league.area.name}}</h3>    
-    <ul>
-        <li v-for="team in league.teams" :key="team.id">
-            {{team.name}}
-        </li>
-    </ul>
+      <div v-if="loaded">
+        <h1>{{league.name}}</h1>    
+        <h3>{{league.area.name}}</h3>    
+        <h3 v-if="league.winner">Campeón: {{league.winner.name}}</h3>    
+        <p v-if="league.winner">img: {{league.winner.crestUrl}}</p>
+        <ul>
+            <li v-for="team in league.teams" :key="team.id">
+                {{team.name}}
+            </li>
+        </ul>
+      </div>
   </div>
 </template>
 <script>
@@ -16,15 +20,15 @@ export default {
     props: ['id','urr','idd'],
     data(){
         return {
-            
+            loaded: false
         }
     },
-    mounted: function() {
-        this.fetchSingleLeague(this.idd)
-        
+    async created() {
+        await this.fetchSingleLeague(this.idd)
+        this.loaded = true
     },
     methods: {
-        ...mapActions(['fetchSingleLeague']),
+        ...mapActions(['fetchSingleLeague','vaciarLeague']),
     },
     //https://www.football-data.org/documentation/quickstart/
     //https://www.football-data.org/docs/v2/index.html#_competition
@@ -33,18 +37,27 @@ export default {
         league: function(){
             if(
                 Object.prototype.hasOwnProperty.call(this.getSingleLeague, 'competition')
-
             ){
+                
+                console.log("sheldon")
+                console.log(this.getSingleLeague.season)
                return {
                    ...this.getSingleLeague.competition,
-                   ...this.getSingleLeague.seasons,
+                   winner : this.getSingleLeague.season.winner,
                    teams: this.getSingleLeague.teams
                }
             }
-            return {area: {},teams: []}
+            return {
+                area: {},
+                season: {},
+                teams: [],
+                winner: {}
+                }
         }
+    },
+    beforeDestroy(){
+        this.vaciarLeague()
     }
-
 }
 </script>
 <style lang="scss" scoped>

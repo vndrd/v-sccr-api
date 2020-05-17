@@ -24,6 +24,9 @@ const actions = {
         .catch( error => console.log(error))
         console.log({commit , league})
         commit('setSingleLeague',league)
+    },
+    vaciarLeague: function({commit}){
+        commit('setLeagueEmpty')
     }
 }
 const mutations = {
@@ -32,7 +35,8 @@ const mutations = {
         console.log("weareasetting htis")
         console.log(league)
         return state.singleLeague = league
-    }
+    },
+    setLeagueEmpty: (state) => state.singleLeague = {}
 }
 
 export default {
