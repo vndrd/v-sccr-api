@@ -6,11 +6,12 @@ import store from './store'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 //https://www.football-data.org/documentation/api
+axios.defaults.baseURL = 'http://api.football-data.org/v2/'
 axios.defaults.headers.common = {
   'X-Auth-Token': '593fb478d991492ebed3318c7c5e1486'
 };
 //6bd688cffee243f2a973d25dcc6d6d1b anterior
-//axios.defaults.baseURL = 'http://api.football-data.org/v2/'
+
 
 //https://www.football-data.org/docs/v1/index.html
 Vue.use(VueAxios, axios)

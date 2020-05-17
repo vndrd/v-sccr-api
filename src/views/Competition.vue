@@ -29,9 +29,11 @@ export default {
     async created() {
         await this.fetchSingleLeague(this.idd)
         this.loaded = true
+        console.log("loading standings")
+        await this.resStandings(this.idd)
     },
     methods: {
-        ...mapActions(['fetchSingleLeague','vaciarLeague']),
+        ...mapActions(['fetchSingleLeague','vaciarLeague','resStandings']),
     },
     //https://www.football-data.org/documentation/quickstart/
     //https://www.football-data.org/docs/v2/index.html#_competition
