@@ -13,7 +13,7 @@ export default {
     name: 'CompetitionList',
     props: ['list'],
     mounted: function() {
-
+        console.log("otra vez")
     },
 }
 </script>
