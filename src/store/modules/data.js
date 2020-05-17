@@ -1,7 +1,7 @@
 import axios from 'axios'
 const state = {
     leagues:[],
-    singleLeague: []
+    singleLeague: {}
 }
 const getters = {
     getLeagues: (state) => state.leagues,
@@ -9,30 +9,30 @@ const getters = {
 }
 const actions = {
     fetchLeagues: async function({commit}){
-        const leagues = await axios({
-            url: 'competitions',        
-            
-        }).then((response) => 
-            response.data.competitions
-        )
+        const leagues = await axios.get(
+        'http://api.football-data.org/v2/competitions'
+        ).then((response) => response.data.competitions
+        ).catch( error => console.log(error))
         commit('setLeagues',leagues)
     },
-    fetchSingleLeague: async function({commit}){
-        const league = await axios.get({
-            url: 'http://footballdb.herokuapp.com/api/event/en.2013_14/round/4?callback=handleGames',        
-        }).then(response => {
-            console.log("2nd leagueaaa")
-            console.log(response.data)
-        }).catch( error => {
-            console.log("ups error")
-            console.log(error)
-        })
-        console.log("commit ")
+    //593fb478d991492ebed3318c7c5e1486
+    //2000,2001,2002,2003,2013,2014,2015,2016,2017,2018,2019,2021
+    fetchSingleLeague: async function({commit},id){
+        const league = await axios.get(
+            `http://api.football-data.org/v2/competitions/${id}/teams`
+        ).then(response => response.data)
+        .catch( error => console.log(error))
         console.log({commit , league})
+        commit('setSingleLeague',league)
     }
 }
 const mutations = {
-    setLeagues: (state,leagues) => state.leagues = leagues
+    setLeagues: (state,leagues) => state.leagues = leagues,
+    setSingleLeague: (state, league) => {
+        console.log("weareasetting htis")
+        console.log(league)
+        return state.singleLeague = league
+    }
 }
 
 export default {

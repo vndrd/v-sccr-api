@@ -1,93 +1,50 @@
 <template>
   <div>
-    <h1>{{league.name}}</h1>
-    <p>Temporadas</p>
+    <h1>{{league.name}}</h1>    
+    <h3>{{league.area.name}}</h3>    
     <ul>
-        <a v-for="season in league.seasons" :key="season.id" href="#" @click="chooseSeason(season.id)">
-            {{season.startDate}}
-        </a>
+        <li v-for="team in league.teams" :key="team.id">
+            {{team.name}}
+        </li>
     </ul>
-    
   </div>
 </template>
 <script>
 //<button @click="getSingleLeague">qwe</button>
+import {mapActions,mapGetters} from 'vuex'
 export default {
-    props: ['id','urr'],
+    props: ['id','urr','idd'],
     data(){
         return {
-            league: {}
+            
         }
     },
     mounted: function() {
-        console.log("before birch")
-        console.log("go: ",this.urr)
-        console.log("comp comp comp comp comp comp comp")
-        //this.getSingleLeague()
-        this.htttpMethod();
-        this.chooseSeason(1)
+        this.fetchSingleLeague(this.idd)
+        
     },
     methods: {
-        chooseSeason: function(id){
-            console.log("its the id: ",id)
-            let url = `http://api.football-data.org/v2/competitions/1/teams`
-            //    url = "http://api.football-data.org/v2/competitions/"+id+"/teams"
-            console.log("Testing vue-resourcesssss")
-            this.$http.get(url)
-            .then(response => {
-                console.log("yeah")
-                console.log(response.data)
-                }, response => {
-                    console.log("fucking error")
-                    console.log(response)
-                });  
-        },
-        //https://www.football-data.org/documentation/quickstart/
-        htttpMethod: function(){
-            let url = `https://api.football-data.org/v2/competitions/2000`
-            console.log("Testing vue-resourcesssss")
-            this.$http.get(url)
-          .then(response => {
-              this.league = response.data
-            }, response => {
-                console.log("fucking error")
-                console.log(response)
-            });
-        },
-        getSingleLeague: function(){
-            let url = this.urr
-            setTimeout(() => {
-                
-            }, 3000);
-            console.log('the url',url)
-            console.log("getSingleLEague", this.id)
-            this.axios({
-                url: url,
-                type: 'GET'
-                }).then( response => {
-                    this.league = response.data
-                    console.log(response.data)
-            }).catch( error => {console.log(error)})
-            url = `https://api.football-data.org/v2/competitions/2059`
-            this.axios({
-                url: url,
-                type: 'GET'
-                }).then( response => {
-            //        this.league = response.data
-                    console.log(response.data)
-            }).catch( error => {console.log(error)})
-            //provinf
-            url = `https://api.football-data.org/v2/matches`
-            console.log("getSingleLEague", this.id)
-            this.axios({
-                url: url,
-                type: 'GET'
-                }).then( response => {
-                    console.log(response.data)
-            }).catch( error => {console.log(error)})
-            console.log("calling another method");   
+        ...mapActions(['fetchSingleLeague']),
+    },
+    //https://www.football-data.org/documentation/quickstart/
+    //https://www.football-data.org/docs/v2/index.html#_competition
+    computed: {
+        ...mapGetters(['getSingleLeague']),
+        league: function(){
+            if(
+                Object.prototype.hasOwnProperty.call(this.getSingleLeague, 'competition')
+
+            ){
+               return {
+                   ...this.getSingleLeague.competition,
+                   ...this.getSingleLeague.seasons,
+                   teams: this.getSingleLeague.teams
+               }
+            }
+            return {area: {},teams: []}
         }
     }
+
 }
 </script>
 <style lang="scss" scoped>

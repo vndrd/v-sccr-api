@@ -1,9 +1,8 @@
 <template>
   <div>
-    <CompetitionList :list="getLeagues"/>
+    <CompetitionList :list="filtrados"/>
   </div>
 </template>
-
 <script>
 // @ is an alias to /src
 import CompetitionList from '@/components/CompetitionList.vue'
@@ -14,17 +13,22 @@ export default {
   data() {
     return {
       list: [],
-      currentCompetition: {}
+      currentCompetition: {},
+      disponibles : [
+        2000,2001,2002,2003,2013,2014,2015,2016,2017,2018,2019,2021
+      ]
     }
   },
   mounted(){
-    console.log("mounted")
     this.fetchLeagues()
-    this.fetchSingleLeague();
-    console.log("vamos ")
   },
   computed: {
-    ...mapGetters(['getLeagues'])
+    ...mapGetters(['getLeagues']),    
+    filtrados: function(){ 
+      return this.getLeagues.filter(
+        (league)=> this.disponibles.includes(league.id)
+      )
+    }
   },
   methods: {
     ...mapActions(['fetchLeagues','fetchSingleLeague']),
