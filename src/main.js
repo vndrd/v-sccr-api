@@ -13,7 +13,8 @@ axios.defaults.headers.common = {
 //6bd688cffee243f2a973d25dcc6d6d1b anterior
 
 
-//https://www.football-data.org/docs/v1/index.html
+//https://www.football-data.org/documentation/quickstart/
+    //https://www.football-data.org/docs/v2/index.html#_competition
 Vue.use(VueAxios, axios)
 //Vue.http.headers.common['X-Auth-Token'] = '6bd688cffee243f2a973d25dcc6d6d1b';
 

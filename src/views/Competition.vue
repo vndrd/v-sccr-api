@@ -33,15 +33,19 @@ export default {
     async created() {
         await this.fetchSingleLeague(this.idd)
         this.loaded = true
-        console.log("loading standings")
         await this.resStandings(this.idd)
-        console.log("from created ")
+        console.log("from crated testing matches")
+        await this.resMatches(this.idd)
     },
     methods: {
-        ...mapActions(['fetchSingleLeague','vaciarLeague','resStandings']),
+        ...mapActions([
+            'fetchSingleLeague',
+            'vaciarLeague',
+            'resStandings',
+            'resMatches',
+        ]),
     },
-    //https://www.football-data.org/documentation/quickstart/
-    //https://www.football-data.org/docs/v2/index.html#_competition
+    
     computed: {
         ...mapGetters(['getSingleLeague','getStandings']),
         league: function(){

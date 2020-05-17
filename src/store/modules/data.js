@@ -2,12 +2,14 @@ import axios from 'axios'
 const state = {
     leagues:[],
     singleLeague: {},
-    standings: {}
+    standings: {},
+    matches: [],
 }
 const getters = {
     getLeagues: (state) => state.leagues,
     getSingleLeague: (state) => state.singleLeague,
     getStandings: (state) => state.standings,
+    getMatches: (state) => state.matches
 }
 const actions = {
     fetchLeagues: async function({commit}){
@@ -27,8 +29,14 @@ const actions = {
         const standings = await axios.get(`competitions/${id}/standings`)
             .then((response) => response.data)
             .catch( error => console.log(error))
-        console.log({commit , standings})
         commit('setStandings',standings)
+    },
+    resMatches: async function({commit},id){
+        const matches = await axios.get(`competitions/${id}/matches`)
+            .then((response) => response.data)
+            .catch( error => console.log(error))
+        console.log({text: 'matches', commit , matches})
+        commit('setMatches',matches)
     },
     vaciarLeague: function({commit}){
         commit('setLeagueEmpty')
@@ -38,6 +46,7 @@ const mutations = {
     setLeagues:     (state,leagues) => state.leagues = leagues,
     setSingleLeague: (state, league) => state.singleLeague = league,
     setStandings:   (state,standings ) => state.standings = standings,
+    setMatches: (state,matches) => state.matches = matches,
     setLeagueEmpty: (state) => state.singleLeague = {},
 }
 
