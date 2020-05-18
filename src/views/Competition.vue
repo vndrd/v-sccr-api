@@ -10,8 +10,11 @@
         <p>Temporada: {{temporada}}</p>
         <div class="container-club">
             <ClubItem v-for="team in league.teams" :key="team.id" :team="team"/>
-            <div class="grid-table">
+            <div class="grid-item-table">
                 <Tabla :table="table" />
+            </div>
+            <div class="grid-item-matches">
+                <Matches :matches="matches" />
             </div>
         </div>
       </div>
@@ -21,10 +24,12 @@
 //<button @click="getSingleLeague">qwe</button>
 import ClubItem from '@/components/ClubItem'
 import Tabla from '@/components/Tabla'
+import Matches from '@/components/Matches'
 import {mapActions,mapGetters} from 'vuex'
+
 export default {
     props: ['id','urr','idd'],
-    components: {ClubItem,Tabla},
+    components: {ClubItem,Tabla,Matches},
     data(){
         return {
             loaded: false
@@ -32,10 +37,10 @@ export default {
     },
     async created() {
         await this.fetchSingleLeague(this.idd)
-        this.loaded = true
         await this.resStandings(this.idd)
         console.log("from crated testing matches")
         await this.resMatches(this.idd)
+        this.loaded = true
     },
     methods: {
         ...mapActions([
@@ -45,9 +50,8 @@ export default {
             'resMatches',
         ]),
     },
-    
     computed: {
-        ...mapGetters(['getSingleLeague','getStandings']),
+        ...mapGetters(['getSingleLeague','getStandings','getMatches']),
         league: function(){
             if(Object.prototype.hasOwnProperty.call(this.getSingleLeague, 'competition')){
                return {
@@ -71,6 +75,13 @@ export default {
             if(Object.prototype.hasOwnProperty.call(this.getStandings, 'standings'))
                 return this.getStandings.standings[0].table
             return []
+        },
+        matches: function(){
+            if(Object.prototype.hasOwnProperty.call(this.getMatches, 'matches')){
+                console.log("this went on true")
+                return this.getMatches.matches
+            }
+            return []
         }
     },
     beforeDestroy(){
@@ -85,7 +96,7 @@ export default {
     row-gap: 5px;
     column-gap: 5px;    
 }
-.grid-table {
+.grid-item-table {
     grid-column: 4/8;
 }
 </style>
