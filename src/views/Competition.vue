@@ -97,6 +97,9 @@ export default {
     column-gap: 5px;    
 }
 .grid-item-table {
-    grid-column: 4/8;
+    grid-column: 1/5;
+}
+.grid-item-matches {
+    grid-column: 5/9;
 }
 </style>
