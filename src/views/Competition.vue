@@ -16,6 +16,9 @@
             <div class="grid-item-matches">
                 <Matches :matches="matches" :totalMatchDays="totalMatchDays" />
             </div>
+            <div class="grid-item-scorers">
+                <Scorers :scorers="scorers" />    
+            </div>
         </div>
       </div>
   </div>
@@ -25,11 +28,12 @@
 import ClubItem from '@/components/ClubItem'
 import Tabla from '@/components/Tabla'
 import Matches from '@/components/Matches'
+import Scorers from '@/components/Scorers'
 import {mapActions,mapGetters} from 'vuex'
 
 export default {
     props: ['id','urr','idd'],
-    components: {ClubItem,Tabla,Matches},
+    components: {ClubItem,Tabla,Matches,Scorers},
     data(){
         return {
             loaded: false
@@ -85,6 +89,12 @@ export default {
             }
             return []
         },
+        scorers: function(){
+            if(Object.prototype.hasOwnProperty.call(this.getScorers, 'scorers')){
+                return this.getScorers.scorers
+            }
+            return []
+        },
         totalMatchDays: function(){
             if(Object.prototype.hasOwnProperty.call(this.getMatches, 'matches')){
                 let getUniqueListBy = function(arr, key) {
@@ -112,5 +122,8 @@ export default {
 }
 .grid-item-matches {
     grid-column: 4/8;
+}
+.grid-item-scorers {
+    grid-column: 8/-1;
 }
 </style>

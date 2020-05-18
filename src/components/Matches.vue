@@ -38,8 +38,8 @@ export default {
     methods: {
         extraerFecha(date){
             let agregarCero = (numero) => numero < 10? `0${numero}` : numero
-            let fecha = new Date(date)
-            let mes = agregarCero ( fecha.getMonth() + 1 ),
+            let fecha = new Date(date),
+                mes = agregarCero ( fecha.getMonth() + 1 ),
                 dia = agregarCero( fecha.getDate() ),
                 anio = fecha.getFullYear();
             return `${dia}-${mes}-${anio}`
