@@ -38,8 +38,10 @@ export default {
     async created() {
         await this.fetchSingleLeague(this.idd)
         await this.resStandings(this.idd)
-        console.log("from crated testing matches")
         await this.resMatches(this.idd)
+        await this.resScorers(this.idd)
+        console.log("from crated testing scorers")
+        console.log(this.getScorers)
         this.loaded = true
     },
     methods: {
@@ -48,10 +50,11 @@ export default {
             'vaciarLeague',
             'resStandings',
             'resMatches',
+            'resScorers',
         ]),
     },
     computed: {
-        ...mapGetters(['getSingleLeague','getStandings','getMatches']),
+        ...mapGetters(['getSingleLeague','getStandings','getMatches','getScorers']),
         league: function(){
             if(Object.prototype.hasOwnProperty.call(this.getSingleLeague, 'competition')){
                return {
@@ -89,7 +92,6 @@ export default {
                 }
                 return getUniqueListBy(this.getMatches.matches, 'matchday').map((match) => match.matchday)
             }
-
             return []
         }
     },

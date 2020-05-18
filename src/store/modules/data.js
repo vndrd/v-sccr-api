@@ -4,12 +4,14 @@ const state = {
     singleLeague: {},
     standings: {},
     matches: [],
+    scorers: [],
 }
 const getters = {
     getLeagues: (state) => state.leagues,
     getSingleLeague: (state) => state.singleLeague,
     getStandings: (state) => state.standings,
-    getMatches: (state) => state.matches
+    getMatches: (state) => state.matches,
+    getScorers: (state) => state.scorers,
 }
 const actions = {
     fetchLeagues: async function({commit}){
@@ -39,6 +41,13 @@ const actions = {
         console.log({text: 'matches', commit , matches})
         commit('setMatches',matches)
     },
+    resScorers: async function({commit},id){
+        const matches = await axios.get(`competitions/${id}/scorers`)
+            .then((response) => response.data)
+            .catch( error => console.log(error))
+        console.log({text: 'scorers', commit , matches})
+        commit('setScorers',matches)
+    },
     vaciarLeague: function({commit}){
         commit('setLeagueEmpty')
     }
@@ -48,6 +57,7 @@ const mutations = {
     setSingleLeague: (state, league) => state.singleLeague = league,
     setStandings:   (state,standings ) => state.standings = standings,
     setMatches: (state,matches) => state.matches = matches,
+    setScorers: (state,scorers) => state.scorers = scorers,
     setLeagueEmpty: (state) => state.singleLeague = {},
 }
 
