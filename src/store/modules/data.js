@@ -21,7 +21,7 @@ const actions = {
         commit('setLeagues',leagues)
     },
     fetchSingleLeague: async function({commit},id){
-        const league = await axios.get(`competitions/${id}/teams`)
+        const league = await axios.get(`competitions/${id}/teams?season=2018`)
             .then(response => response.data)
             .catch( error => console.log(error))
 

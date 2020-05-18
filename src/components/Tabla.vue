@@ -47,9 +47,9 @@ tbody tr td{
     padding-bottom: 5px;
 }
 tbody tr:nth-child(2n) {
-    background: #cfc;
+    background: #f1fff1;
 }
 tbody tr:nth-child(2n+1) {
-    background: #ccc;
+    background: #eee;
 }
 </style>
