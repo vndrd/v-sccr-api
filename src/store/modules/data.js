@@ -32,6 +32,7 @@ const actions = {
         commit('setStandings',standings)
     },
     resMatches: async function({commit},id){
+        //const matches = await axios.get(`competitions/${id}/matches`,{params: {matchday: 38}})
         const matches = await axios.get(`competitions/${id}/matches`)
             .then((response) => response.data)
             .catch( error => console.log(error))

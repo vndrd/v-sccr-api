@@ -14,7 +14,7 @@
                 <Tabla :table="table" />
             </div>
             <div class="grid-item-matches">
-                <Matches :matches="matches" />
+                <Matches :matches="matches" :totalMatchDays="totalMatchDays" />
             </div>
         </div>
       </div>
@@ -78,9 +78,18 @@ export default {
         },
         matches: function(){
             if(Object.prototype.hasOwnProperty.call(this.getMatches, 'matches')){
-                console.log("this went on true")
                 return this.getMatches.matches
             }
+            return []
+        },
+        totalMatchDays: function(){
+            if(Object.prototype.hasOwnProperty.call(this.getMatches, 'matches')){
+                let getUniqueListBy = function(arr, key) {
+                    return [...new Map(arr.map(item => [item[key], item])).values()]
+                }
+                return getUniqueListBy(this.getMatches.matches, 'matchday').map((match) => match.matchday)
+            }
+
             return []
         }
     },
@@ -97,9 +106,9 @@ export default {
     column-gap: 5px;    
 }
 .grid-item-table {
-    grid-column: 1/5;
+    grid-column: 1/4;
 }
 .grid-item-matches {
-    grid-column: 5/9;
+    grid-column: 4/8;
 }
 </style>
