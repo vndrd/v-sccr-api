@@ -3,7 +3,10 @@
         <h3>
             {{team.name}}
         </h3>
-        <img :src="team.crestUrl" alt="" height="100px">
+        <!-- <img :src="team.crestUrl" alt="" height="100px"> -->
+        <img v-if="team.crestUrl" :src="team.crestUrl" alt="" height="100px">
+        <img v-else src="@/assets/defaults.png" alt="" height="100px" class="img-default">
+
     </div>    
 </template>
 <script>
@@ -20,6 +23,9 @@ export default {
     height: 100px;
     position:relative;
     cursor: pointer;
+}
+.img-default{
+    margin-left: calc(-25%);
 }
 img{
     transition: .3s all ease-in-out;
