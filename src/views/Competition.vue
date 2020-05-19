@@ -40,18 +40,21 @@ export default {
         }
     },
     async created() {
-        await this.fetchSingleLeague(this.idd)
-        await this.resStandings(this.idd)
-        await this.resMatches(this.idd)
-        await this.resScorers(this.idd)
+        await this.cargarData();
         console.log("from crated testing scorers")
         console.log(this.getScorers)
-        this.loaded = true
+        await (this.loaded = true)
     },
     methods: {
+        cargarData(){
+            this.fetchSingleLeague(this.idd)
+            this.resStandings(this.idd)
+            this.resMatches(this.idd)
+            this.resScorers(this.idd)
+        },
         ...mapActions([
+            'vaciarLeague','vaciarStandings','vaciarMatches','vaciarScorers',
             'fetchSingleLeague',
-            'vaciarLeague',
             'resStandings',
             'resMatches',
             'resScorers',
@@ -107,6 +110,9 @@ export default {
     },
     beforeDestroy(){
         this.vaciarLeague()
+        this.vaciarStandings()
+        this.vaciarMatches()
+        this.vaciarScorers()
     }
 }
 </script>

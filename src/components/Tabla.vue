@@ -23,7 +23,7 @@
 <script>
 export default {
     name: 'Tabla',
-    props: ['table']
+    props: ['table'],
 }
 </script>
 <style lang="scss" scoped>

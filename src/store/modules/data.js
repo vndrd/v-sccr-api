@@ -49,9 +49,10 @@ const actions = {
         console.log({text: 'scorers', commit , matches})
         commit('setScorers',matches)
     },
-    vaciarLeague: function({commit}){
-        commit('setLeagueEmpty')
-    }
+    vaciarLeague: ({commit}) => commit('setLeagueEmpty'),
+    vaciarStandings: ({commit}) => commit('setStandingsEmpty'),
+    vaciarMatches: ({commit}) => commit('setMatchesEmpty'),
+    vaciarScorers: ({commit}) => commit('setScorersEmpty'),
 }
 const mutations = {
     setLeagues:     (state,leagues) => state.leagues = leagues,
@@ -59,7 +60,11 @@ const mutations = {
     setStandings:   (state,standings ) => state.standings = standings,
     setMatches: (state,matches) => state.matches = matches,
     setScorers: (state,scorers) => state.scorers = scorers,
+    /*Set Empty */
     setLeagueEmpty: (state) => state.singleLeague = {},
+    setStandingsEmpty: (state) => state.standings = {},
+    setMatchesEmpty: (state) => state.matches = [],
+    setScorersEmpty: (state) => state.scorers = [],
 }
 
 export default {
