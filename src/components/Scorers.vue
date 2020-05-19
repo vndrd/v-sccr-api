@@ -39,9 +39,9 @@ table tr td {
     background: #eee;
     margin-bottom: 10px;
 }
-td:first-child { border-top-left-radius: 10px; padding-left: 10px;}
+td:first-child { border-top-left-radius: 0px; padding-left: 10px;}
 td:last-child { border-top-right-radius: 10px; padding-right: 10px;background: #444; color: white; width: 40px;}
-td:first-child { border-bottom-left-radius: 10px; }
+td:first-child { border-bottom-left-radius: 0px; }
 td:last-child { border-bottom-right-radius: 10px; }
 
 
