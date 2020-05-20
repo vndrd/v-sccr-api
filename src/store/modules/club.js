@@ -1,6 +1,6 @@
 import axios from 'axios'
 //https://www.football-data.org/documentation/quickstart/
-//thttps://www.football-data.org/docs/v2/index.html#_competition,
+//https://www.football-data.org/docs/v2/index.html#_competition,
 const state = {
     club: {}
 }

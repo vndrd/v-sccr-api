@@ -6,21 +6,29 @@
                 <img :src="getClub.crestUrl" :alt="getClub.name" width="50%">
             </div>
         </div>
+        <div class="grid-item-squad">
+            <h1>Player item</h1>
+            <PlayerItem  :squad="getClub.squad" v-if="getClub"/>
+        </div>
     </div>    
 </template>
 <script>
 import { mapActions,mapGetters } from 'vuex'
+import PlayerItem from '@/components/PlayerItem'
+
 export default {
     props:['idd'],
+    components: {PlayerItem},
     created(){
         this.pruebaActions(this.idd);
     },
     methods: {
-        ...mapActions(['pruebaActions'])
+        ...mapActions(['pruebaActions']),
     },
     computed: {
-        ...mapGetters(['getClub'])
-    }
+        ...mapGetters(['getClub']),
+    },
+
 }
 </script>
 <style lang="scss" scoped>
@@ -36,6 +44,10 @@ export default {
     grid-column: 1 / 3 ;
     grid-row: 1/3;
     align-items: center;
+}
+.grid-item-squad{
+    grid-column: 3 /5;
+    grid-row: 1/3;
 }
 .contenedor-img{
     /*align */
