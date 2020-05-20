@@ -1,10 +1,11 @@
 <template>
     <div>
-        <div v-for="group in byPosition" :key="group.position"> 
+        <div v-for="group in byPosition" :key="group.position" class="grupo"> 
             <h3>{{group.position}}</h3>
-            <div v-for="player in group.players" :key="player.id">
-                <td>{{player.name}}</td>
-                <td>{{acortarPosicion(player.position)}}</td>
+            <div class="all-players">
+                <li v-for="player in group.players" :key="player.id" class="player">
+                    {{player.name}}
+                </li>
             </div>
         </div>
     </div>
@@ -53,7 +54,33 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-li{
+h3{
+    background: rgba($color: #111, $alpha: .1);
+    margin: 0;
+}
+.all-players{
+    display: grid;
+    grid-template-columns: 50% 50%;
+    align-items: flex-start;
+    background:rgba($color: #111, $alpha: .5);
+}
+.player{
+    padding:10px;
+    display: block;
     list-style: none;
+    text-align: left;
+    color:white;
+    background:rgba($color: #111, $alpha: .1);
+    position: relative;
+    padding-left: 20px;
+}
+.player::after{
+    content:'';
+    width: 10px;
+    height: 20px;
+    background: #555;
+    
+    position:absolute;
+    left: 0;
 }
 </style>

@@ -7,7 +7,7 @@
             </div>
         </div>
         <div class="grid-item-squad">
-            <h1>Player item</h1>
+            <h1>Plantilla</h1>
             <PlayerItem  :squad="getClub.squad" v-if="getClub"/>
         </div>
     </div>    
@@ -35,9 +35,9 @@ export default {
 .grid-container {
     display: grid;
     grid-template-columns: repeat(6,1fr);
-    grid-template-rows: repeat(3,1fr);
+    grid-auto-rows: minmax(200px,auto);
     grid-gap: 10px 10px;
-    height: 90vh;
+    
 }
 .grid-item-team {
     // background: yellow;
@@ -46,8 +46,9 @@ export default {
     align-items: center;
 }
 .grid-item-squad{
+    overflow: hidden;
     grid-column: 3 /5;
-    grid-row: 1/3;
+    grid-row: 1/4;
 }
 .contenedor-img{
     /*align */
