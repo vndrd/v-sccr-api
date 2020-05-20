@@ -16,11 +16,20 @@ Vue.use(VueRouter)
     name: 'Competition',
     props:  (route) => {
       return {
-        urr: `https://api.football-data.org/v2/competitions/${route.params.id}`,
         idd: route.params.id
       }
     },
-    component: () => import(/* webpackChunkName: "about" */ '../views/Competition.vue')
+    component: () => import('../views/Competition.vue')
+  },
+  {
+    path: '/club/:id',
+    name: 'Club',
+    props:  (route) => {
+      return {
+        idd: route.params.id
+      }
+    },
+    component: () => import('../views/Club.vue')
   },
   {
     path: '/about',

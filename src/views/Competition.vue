@@ -32,7 +32,7 @@ import Scorers from '@/components/Scorers'
 import {mapActions,mapGetters} from 'vuex'
 
 export default {
-    props: ['id','urr','idd'],
+    props: ['id','idd'],
     components: {ClubItem,Tabla,Matches,Scorers},
     data(){
         return {

@@ -1,21 +1,31 @@
 <template>
-    <div class="item">
+    <!-- <div class="item" @click="verClub(team.id)" :ref="'item' + team.id"> -->
+    <router-link :to="'/club/'+team.id">
+    <div class="item" @click="verClub(team.id)">
         <h3>
             {{team.name}}
         </h3>
         <!-- <img :src="team.crestUrl" alt="" height="100px"> -->
         <img v-if="team.crestUrl" :src="team.crestUrl" alt="" height="100px">
         <img v-else src="@/assets/defaults.png" alt="" height="100px" class="img-default">
-
     </div>    
+    </router-link>
 </template>
 <script>
 export default {
     props: ['team'],
-    name: 'ClubItem'
+    name: 'ClubItem',
+    methods: {
+        verClub:function(id){
+            console.log({text:"clickning"+id,...this.$refs['item']})
+        }
+    }
 }
 </script>
 <style lang="scss" scoped>
+.prueba{
+ background: yellow !important;   
+}
 .item {
     background: #bbb;
     overflow: hidden;
