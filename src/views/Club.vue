@@ -9,23 +9,39 @@
         <div class="grid-item-squad">
             <PlayerItem  :squad="getClub.squad" v-if="getClub"/>
         </div>
+        <div class="grid-item-matches">
+            <ClubMatches  :matches="matches" v-if="getClubMatches"/>
+        </div>
     </div>    
 </template>
 <script>
 import { mapActions,mapGetters } from 'vuex'
 import PlayerItem from '@/components/PlayerItem'
+import ClubMatches from '@/components/ClubMatches'
 
 export default {
     props:['idd'],
-    components: {PlayerItem},
+    components: {PlayerItem, ClubMatches},
     created(){
-        this.pruebaActions(this.idd);
+        this.resTeam(this.idd);
+        this.resTeamMatches(this.idd);
     },
     methods: {
-        ...mapActions(['pruebaActions']),
+        ...mapActions([
+            'resTeam',
+            'resTeamMatches'
+            ]),
     },
     computed: {
-        ...mapGetters(['getClub']),
+        ...mapGetters([
+            'getClub',
+            'getClubMatches'
+        ]),
+        matches: function(){
+            if(this.getClubMatches)
+                return this.getClubMatches
+            return []
+        }
     },
 
 }
@@ -36,6 +52,9 @@ export default {
     grid-template-columns: repeat(6,1fr);
     grid-auto-rows: minmax(200px,auto);
     grid-gap: 10px 10px;
+}
+.grid-item-matches{
+    grid-column: 5 / 7;
 }
 .grid-item-team {
     // background: yellow;
