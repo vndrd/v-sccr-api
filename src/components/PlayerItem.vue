@@ -57,6 +57,7 @@ export default {
 h3{
     background: rgba($color: #111, $alpha: .1);
     margin: 0;
+    text-transform: uppercase;
 }
 .all-players{
     display: grid;
