@@ -1,10 +1,11 @@
 <template>
-    <div class="grid-container">
-        <div class="grid-item-team">
+    <div class="grid-container" >
+        <div class="grid-item-team" :class="colorprimario">
             <h1>{{getClub.shortName}}</h1>
             <div class="contenedor-img">
                 <img :src="getClub.crestUrl" :alt="getClub.name" width="50%">
             </div>
+            XXX {{colorprimario}}
         </div>
         <div class="grid-item-squad">
             <PlayerItem  :squad="getClub.squad" v-if="getClub"/>
@@ -25,6 +26,7 @@ export default {
     created(){
         this.resTeam(this.idd);
         this.resTeamMatches(this.idd);
+        console.log({text: "getClubColor",color:this.getClub.colors})
     },
     methods: {
         ...mapActions([
@@ -41,12 +43,30 @@ export default {
             if(this.getClubMatches)
                 return this.getClubMatches
             return []
+        },
+        colorprimario: function(){
+            if(this.getClub.clubColors === undefined) return 'nada'
+            if(this.getClub.clubColors){
+                let firstcolor  = this.getClub.clubColors.split('/')[1].trim()
+                if( firstcolor == "White") firstcolor  = this.getClub.clubColors.split('/')[0].trim()
+                if ( firstcolor == "Gold" ) return 'bg-gold'
+                if ( firstcolor == "Red" ) return 'bg-red'
+                if ( firstcolor == "Royal Blue" ) return 'bg-blue'
+                if ( firstcolor == "Blue" ) return 'bg-blue'
+                if ( firstcolor == "Claret" ) return 'bg-claret'
+                return 'nada: '+this.getClub.clubColors
+            }
+            return 'nada'
         }
     },
 
 }
 </script>
 <style lang="scss" scoped>
+.bg-gold { background: rgba($color: #ff0, $alpha: .8) !important; }
+.bg-red { background: rgba($color: #f00, $alpha: .8) !important; }
+.bg-blue { background: rgba($color: #55f, $alpha: .8) !important; }
+.bg-claret { background: rgba($color: #f46, $alpha: .8) !important; }
 .grid-container {
     display: grid;
     grid-template-columns: repeat(6,1fr);

@@ -54,7 +54,7 @@ export default {
 }
 .current-club{
     font-weight: 800;
-    background: #eee;
+    background: #fff;
 }
 .color-empate{background: rgba($color: #ff6, $alpha: 1.0);}
 .color-victoria{background:rgba($color: #6f6, $alpha: 1.0);}

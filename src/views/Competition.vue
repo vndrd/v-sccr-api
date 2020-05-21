@@ -63,6 +63,7 @@ export default {
     computed: {
         ...mapGetters(['getSingleLeague','getStandings','getMatches','getScorers']),
         league: function(){
+            if(this.getSingleLeague === undefined) return {area: {}, season: {}, teams: [], winner: {}}
             if(Object.prototype.hasOwnProperty.call(this.getSingleLeague, 'competition')){
                return {
                    ...this.getSingleLeague.competition,
@@ -102,6 +103,7 @@ export default {
             return []
         },
         totalMatchDays: function(){
+            if(this.getMatches === undefined) return 0 
             if(Object.prototype.hasOwnProperty.call(this.getMatches, 'matches')){
                 let getUniqueListBy = function(arr, key) {
                     return [...new Map(arr.map(item => [item[key], item])).values()]

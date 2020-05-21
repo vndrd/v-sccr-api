@@ -5,6 +5,9 @@
             <div class="all-players">
                 <li v-for="player in group.players" :key="player.id" class="player">
                     {{player.name}}
+                    <span>
+                        {{calcularEdad(player.dateOfBirth)}} años
+                    </span>
                 </li>
             </div>
         </div>
@@ -31,7 +34,12 @@ export default {
                     break;
             }
             return short
-        }
+        },
+        calcularEdad(birthday) {
+            let diferenciaScnds = Date.now() - new Date(birthday).getTime();
+            let diferencia = new Date(diferenciaScnds);
+            return Math.abs(diferencia.getUTCFullYear() - 1970);
+        },
     },
     computed:{
         byPosition: function(){
@@ -49,11 +57,19 @@ export default {
                 return result
             }
             return []
-        } 
+        },
     }
 }
 </script>
 <style lang="scss" scoped>
+li{
+    font-size: 1.2rem;
+}
+span{
+    color: #ddd;
+    font-size: .8rem;
+    display: block;
+}
 h3{
     background: rgba($color: #111, $alpha: .1);
     margin: 0;
@@ -63,24 +79,25 @@ h3{
     display: grid;
     grid-template-columns: 50% 50%;
     align-items: flex-start;
-    background:rgba($color: #111, $alpha: .5);
+    row-gap: 1px;
+    background: #888;
 }
 .player{
-    padding:10px;
+    padding:20px;
     display: block;
     list-style: none;
     text-align: left;
     color:white;
-    background:rgba($color: #111, $alpha: .1);
+    background: #999;
     position: relative;
     padding-left: 20px;
 }
 .player::after{
     content:'';
     width: 10px;
-    height: 20px;
-    background: #555;
-    
+    height: 50px;
+    background: #777;
+    top:0;
     position:absolute;
     left: 0;
 }
