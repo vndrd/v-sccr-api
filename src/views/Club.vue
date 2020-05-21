@@ -53,26 +53,29 @@ export default {
     grid-auto-rows: minmax(200px,auto);
     grid-gap: 10px 10px;
 }
-.grid-item-matches{
-    grid-column: 5 / 7;
-}
 .grid-item-team {
     // background: yellow;
     grid-column: 1 / 3 ;
     grid-row: 1/3;
     align-items: center;
     background: #ddd;
-    h1{
-        margin:0;
-        background: #fafafa;
-        margin-bottom: 20px;
-        padding:20px;
-    }
+    
 }
 .grid-item-squad{
     overflow: hidden;
     grid-column: 3 /5;
     grid-row: 1/4;
+}   
+.grid-item-matches{
+    grid-column: 5 / 7;
+    grid-row: 1/5   ;
+}
+//grid 
+.grid-item-team h1{
+    margin:0;
+    background: #fafafa;
+    margin-bottom: 20px;
+padding:20px;
 }
 .contenedor-img{
     /*align */

@@ -82,17 +82,20 @@ export default {
             return convertir(this.league.season)
         },
         table: function(){
+            if(this.getStandings === undefined) return [] 
             if(Object.prototype.hasOwnProperty.call(this.getStandings, 'standings'))
                 return this.getStandings.standings[0].table
             return []
         },
         matches: function(){
+            if(this.getMatches === undefined) return [] 
             if(Object.prototype.hasOwnProperty.call(this.getMatches, 'matches')){
                 return this.getMatches.matches
             }
             return []
         },
         scorers: function(){
+            if(this.getScorers === undefined) return [] 
             if(Object.prototype.hasOwnProperty.call(this.getScorers, 'scorers')){
                 return this.getScorers.scorers
             }
