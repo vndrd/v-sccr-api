@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container">
         <table>
             <tbody>
                 <tr v-for="match in matches" :key="match.id">
@@ -49,17 +49,34 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.container {
+    background: #ddd;
+}
 .current-club{
     font-weight: 800;
+    background: #eee;
 }
+.color-empate{background: rgba($color: #ff6, $alpha: 1.0);}
+.color-victoria{background:rgba($color: #6f6, $alpha: 1.0);}
+.color-derrota{background: rgba($color: #f66, $alpha: 1.0);}
 table {
     border-collapse: separate;
     border-spacing: 0 10px;
 }
-.color-empate{background: yellow;}
-.color-victoria{background: green;}
-.color-derrota{background: red;}
+table tr{
+
+    background: #ddd;
+    height: 30px;
+}
 tr td:nth-child(2) {
+    font-weight: 500;
     width: 50px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+tr td:nth-child(1){
+
 }
 </style>
